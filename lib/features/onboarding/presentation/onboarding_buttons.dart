@@ -61,7 +61,7 @@ class JoinMeetingButton extends StatelessWidget {
       onPressed: onPressed,
       backgroundColor: theme.primary,
       foregroundColor: theme.onPrimary,
-      child: Text('Sign up',
+      child: Text('Join a meeting',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
     );
   }

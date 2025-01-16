@@ -12,7 +12,6 @@ class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-
     return CommonButton(
       onPressed: onPressed,
       backgroundColor: theme.secondary,
@@ -34,7 +33,6 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-
     return CommonButton(
       onPressed: onPressed,
       backgroundColor: theme.secondary,
@@ -56,7 +54,6 @@ class JoinMeetingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-
     return CommonButton(
       onPressed: onPressed,
       backgroundColor: theme.primary,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'onboarding_buttons.dart';
+import 'auth_buttons.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});

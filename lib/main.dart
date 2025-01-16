@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoom_flutter/constants/constants.dart';
-import 'package:zoom_flutter/features/onboarding/onboarding.dart';
+import 'package:zoom_flutter/features/auth/auth.dart';
 
 void main() {
   runApp(ZoomApp());

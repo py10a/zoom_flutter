@@ -7,35 +7,40 @@ class CommonButton extends StatelessWidget {
     this.backgroundColor,
     this.foregroundColor,
     this.onPressed,
+    this.icon,
+  });
+
+  const CommonButton.icon({
+    super.key,
+    required this.icon,
+    required this.child,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.onPressed,
   });
 
   final Widget child;
   final VoidCallback? onPressed;
   final Color? backgroundColor;
   final Color? foregroundColor;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
 
-    return SizedBox(
-      width: double.infinity,
-      child: FilledButton(
-        style: FilledButton.styleFrom(
-          backgroundColor: backgroundColor ?? theme.primary,
-          foregroundColor: foregroundColor ?? theme.onPrimary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-        ),
-        onPressed: onPressed,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 12.0,
-          ),
-          child: child,
+    return FilledButton.icon(
+      icon: icon,
+      style: FilledButton.styleFrom(
+        minimumSize: Size(double.infinity, 48),
+        backgroundColor: backgroundColor ?? theme.primary,
+        foregroundColor: foregroundColor ?? theme.onPrimary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
+      onPressed: onPressed,
+      label: child,
     );
   }
 }

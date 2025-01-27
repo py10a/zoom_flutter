@@ -20,7 +20,7 @@ final lightColorScheme = ColorScheme(
   onSurface: Color(0xFF161919), // Black on background
   onError: Color(0xFFFFFFFF), // White on error
   brightness: Brightness.light, // Light theme
-  outline: Color(0xFF545458), // Dark gray
+  outline: Color(0xFF88888F), // Dark gray
   outlineVariant: Color(0xFF3A3A3C), // Dark gray
 );
 
@@ -34,6 +34,6 @@ final darkColorScheme = ColorScheme(
   onSurface: Color(0xFFDFDFDF), // White on background
   onError: Color(0xFF000000), // Black on error
   brightness: Brightness.dark, // Dark theme
-  outline: Color(0xFF545458), // Dark gray
+  outline: Color(0xFF88888F), // Dark gray
   outlineVariant: Color(0xFF3A3A3C), // Dark gray
 );

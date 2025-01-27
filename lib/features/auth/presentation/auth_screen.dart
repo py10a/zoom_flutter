@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:zoom_flutter/common/widgets/widgets.dart';
 
 import 'auth_buttons.dart';
 
-class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({super.key});
+class AuthScreen extends StatelessWidget {
+  const AuthScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     final mediaQuery = MediaQuery.of(context);
-
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: buildAppBar(theme),
@@ -18,6 +19,14 @@ class OnboardingScreen extends StatelessWidget {
         body: buildBody(theme, mediaQuery),
         bottomSheet: buildBottomSheet(theme, mediaQuery));
   }
+
+  void _joinMeeting(BuildContext context) {}
+
+  void _signUp(BuildContext context) {
+    context.push('/sign-up');
+  }
+
+  void _signIn(BuildContext context) {}
 
   Widget? buildBody(theme, MediaQueryData mediaQuery) {
     return SizedBox(
@@ -48,56 +57,55 @@ class OnboardingScreen extends StatelessWidget {
   BottomSheet buildBottomSheet(ColorScheme theme, MediaQueryData mediaQuery) {
     return BottomSheet(
         enableDrag: false,
-        backgroundColor: theme.onSurface,
+        backgroundColor: theme.surface,
+        constraints: BoxConstraints(
+          minHeight: mediaQuery.size.height * 0.4,
+          minWidth: mediaQuery.size.width,
+        ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(24),
           ),
         ),
         onClosing: () {},
         builder: (context) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: SizedBox(
-              height: mediaQuery.size.height * 0.4,
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 32),
-                  Column(
-                    spacing: 4,
-                    children: [
-                      Text(
-                        'Welcome',
-                        style: TextStyle(
-                          color: theme.onPrimary,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+            child: Column(
+              spacing: 24,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  spacing: 4,
+                  children: [
+                    Text(
+                      'Welcome',
+                      style: TextStyle(
+                        color: theme.onSurface,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Text(
-                        'Get started by creating an account',
-                        style: TextStyle(
-                          color: theme.onPrimary,
-                          fontSize: 14,
-                        ),
+                    ),
+                    Text(
+                      'Get started by creating an account',
+                      style: TextStyle(
+                        color: theme.onSurface,
+                        fontSize: 14,
                       ),
-                    ],
-                  ),
-                  SizedBox(height: 24),
-                  Column(
-                    spacing: 14,
-                    children: [
-                      JoinMeetingButton(onPressed: () {}),
-                      SignUpButton(onPressed: () {}),
-                      SignInButton(onPressed: () {}),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                Column(
+                  spacing: 14,
+                  children: [
+                    JoinMeetingButton(onPressed: () => _joinMeeting(context)),
+                    SignUpButton(onPressed: () => _signUp(context)),
+                    SignInButton(onPressed: () => _signIn(context)),
+                  ],
+                ),
+              ],
             ),
           );
         });

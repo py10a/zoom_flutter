@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoom_flutter/constants/constants.dart';
-import 'package:zoom_flutter/features/auth/auth.dart';
+import 'package:zoom_flutter/routes/routes.dart';
 
 void main() {
   runApp(ZoomApp());
@@ -11,11 +11,11 @@ class ZoomApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Zoom',
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: OnboardingScreen(),
+      routerConfig: router,
     );
   }
 }

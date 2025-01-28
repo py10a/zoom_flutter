@@ -6,15 +6,18 @@ class CommonTextField extends StatelessWidget {
     required this.title,
     this.obscureText = false,
     this.suffixIcon,
+    this.keyboardType,
   });
 
   final String title;
   final Widget? suffixIcon;
   final bool obscureText;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         labelText: title,
         suffixIcon: suffixIcon,

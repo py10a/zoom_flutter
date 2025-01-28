@@ -3,41 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:zoom_flutter/common/widgets/widgets.dart';
 import 'package:zoom_flutter/features/auth/auth.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
-
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-  bool _isObscure = true;
-
-  void _toggleObscureText() {
-    setState(() {
-      _isObscure = !_isObscure;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(),
-      bottomSheet: buildTermsAndConditions(theme),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
-            spacing: 24,
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               buildHeader(),
-              buildEmailSignUp(theme),
-              buildOrDivider(theme),
-              buildSignUpWithServices(),
+              const SizedBox(height: 24),
+              Column(
+                spacing: 24,
+                children: [
+                  buildEmailSignUp(theme),
+                  buildOrDivider(theme),
+                  buildSignUpWithServices(),
+                ],
+              ),
+              const SizedBox(height: 32),
+              buildTermsAndConditions(theme),
             ],
           ),
         ),
@@ -69,10 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       children: [
         EmailTextField(),
         const SizedBox(height: 16),
-        PasswordTextField(
-          isObscure: _isObscure,
-          onToggleObscureText: _toggleObscureText,
-        ),
+        PasswordTextField(),
         const SizedBox(height: 24),
         SignUpButton(onPressed: () {}),
       ],
@@ -101,41 +91,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget buildTermsAndConditions(ColorScheme theme) {
-    return SafeArea(
-      minimum: const EdgeInsets.all(16),
-      child: Text.rich(
-        TextSpan(
-          style: TextStyle(color: theme.outline),
-          text: 'By continuing you agree to Zoom\'s ',
-          children: [
-            TextSpan(
-              text: 'Terms of Service',
-              style: TextStyle(
-                color: theme.primary,
-                fontWeight: FontWeight.bold,
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  // Open Terms of Service
-                },
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(color: theme.outline),
+        text: 'By continuing you agree to Zoom\'s ',
+        children: [
+          TextSpan(
+            text: 'Terms of Service',
+            style: TextStyle(
+              color: theme.primary,
+              fontWeight: FontWeight.bold,
             ),
-            TextSpan(text: ' and '),
-            TextSpan(
-              text: 'Privacy Policy',
-              style: TextStyle(
-                color: theme.primary,
-                fontWeight: FontWeight.bold,
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  // Open Privacy Policy
-                },
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                // Open Terms of Service
+              },
+          ),
+          TextSpan(text: ' and '),
+          TextSpan(
+            text: 'Privacy Policy',
+            style: TextStyle(
+              color: theme.primary,
+              fontWeight: FontWeight.bold,
             ),
-            const TextSpan(text: '.'),
-          ],
-        ),
-        textAlign: TextAlign.center,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                // Open Privacy Policy
+              },
+          ),
+          const TextSpan(text: '.'),
+        ],
       ),
+      textAlign: TextAlign.center,
     );
   }
 }

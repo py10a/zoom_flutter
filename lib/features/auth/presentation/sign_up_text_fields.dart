@@ -8,30 +8,36 @@ class EmailTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonTextField(
       title: 'Email',
+      keyboardType: TextInputType.emailAddress,
     );
   }
 }
 
-class PasswordTextField extends StatelessWidget {
-  const PasswordTextField({
-    super.key,
-    this.isObscure = false,
-    this.onToggleObscureText,
-  });
+class PasswordTextField extends StatefulWidget {
+  const PasswordTextField({super.key});
 
-  final bool isObscure;
-  final VoidCallback? onToggleObscureText;
+  @override
+  State<PasswordTextField> createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
+  bool _isObscure = false;
+
+  void _toggleObscureText() {
+    setState(() {
+      _isObscure = !_isObscure;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return CommonTextField(
+      keyboardType: TextInputType.visiblePassword,
       title: 'Password',
-      obscureText: isObscure,
+      obscureText: _isObscure,
       suffixIcon: IconButton(
-        isSelected: isObscure,
-        selectedIcon: Icon(Icons.visibility_off),
-        icon: Icon(Icons.visibility),
-        onPressed: onToggleObscureText,
+        icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+        onPressed: _toggleObscureText,
       ),
     );
   }

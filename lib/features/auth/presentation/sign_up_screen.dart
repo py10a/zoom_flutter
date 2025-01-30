@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:zoom_flutter/common/widgets/widgets.dart';
 import 'package:zoom_flutter/features/auth/auth.dart';
 
@@ -36,6 +37,10 @@ class SignUpScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _signIn() async {
+    await GetIt.instance<AuthService>().signIn();
   }
 
   Align buildHeader() {
@@ -84,7 +89,7 @@ class SignUpScreen extends StatelessWidget {
     return Column(
       spacing: 16,
       children: [
-        GoogleSignInButton(onPressed: () {}),
+        GoogleSignInButton(onPressed: _signIn),
         AppleSignInButton(onPressed: () {}),
       ],
     );

@@ -1,14 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zoom_flutter/features/home/home.dart';
+import 'package:zoom_flutter/features/home/presentation/home_screen_meeting_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+
     final List<Widget> pages = [
-      Center(child: Text("Home Page")),
+      Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            HomeScreenMeetingButtons(
+              title: 'Join Meeting',
+              iconData: Icons.video_call,
+              onTap: () {},
+            ),
+            const HomeScreenMeetingButtons(
+              title: 'Schedule Meeting',
+              iconData: Icons.calendar_today,
+            ),
+            const HomeScreenMeetingButtons(
+              title: 'Share Screen',
+              iconData: Icons.screen_share,
+            ),
+          ],
+        ),
+      ]),
       Center(child: Text("Search Page")),
       Center(child: Text("Profile Page")),
     ];
@@ -17,31 +39,19 @@ class HomeScreen extends StatelessWidget {
       create: (_) => BottomNavCubit(),
       child: BlocBuilder<BottomNavCubit, int>(
         builder: (context, state) => Scaffold(
+          backgroundColor: theme.surface,
           appBar: AppBar(
             centerTitle: true,
             title: const Text('Home'),
-            actions: [
-              PopupMenuButton(
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  const PopupMenuItem<String>(
-                    value: 'Logout',
-                    child: Text('Logout'),
-                  ),
-                ],
-                onSelected: (String result) {
-                  switch (result) {
-                    case 'Logout':
-                      break;
-                  }
-                },
-              ),
-            ],
           ),
           body: pages[state],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state,
+            backgroundColor: theme.secondary,
             onTap: (int i) => context.read<BottomNavCubit>().changePage(i),
             type: BottomNavigationBarType.fixed,
+            selectedFontSize: 12,
+            unselectedFontSize: 12,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),

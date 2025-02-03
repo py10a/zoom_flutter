@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zoom_flutter/common/widgets/widgets.dart';
-
-import 'auth_buttons.dart';
+import 'package:zoom_flutter/features/auth/auth.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -12,6 +11,7 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     final mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: buildAppBar(theme),
@@ -23,7 +23,7 @@ class AuthScreen extends StatelessWidget {
   void _joinMeeting(BuildContext context) {}
 
   void _signUp(BuildContext context) {
-    context.push('/sign-up');
+    context.push('/auth/sign-up');
   }
 
   void _signIn(BuildContext context) {}

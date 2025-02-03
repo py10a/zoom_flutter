@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:zoom_flutter/features/auth/services/auth_service.dart';
+import 'package:zoom_flutter/features/auth/data/sources/data_source.dart';
 
-class GoogleAuthService implements AuthService {
+class GoogleSignInDataSource implements DataSource {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -36,9 +36,7 @@ class GoogleAuthService implements AuthService {
       }
       return true;
     } on FirebaseAuthException catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      if (kDebugMode) print(e);
       return false;
     }
   }

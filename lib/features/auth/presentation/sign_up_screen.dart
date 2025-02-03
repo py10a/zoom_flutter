@@ -10,6 +10,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -27,7 +28,7 @@ class SignUpScreen extends StatelessWidget {
                 children: [
                   buildEmailSignUp(theme),
                   buildOrDivider(theme),
-                  buildSignUpWithServices(),
+                  buildSignUpWithServices(context),
                 ],
               ),
               const SizedBox(height: 32),
@@ -39,8 +40,8 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _signIn() async {
-    await GetIt.instance<AuthService>().signIn();
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    await GetIt.I.get<AuthService>().signIn(AuthServiceProvider.google);
   }
 
   Align buildHeader() {
@@ -85,11 +86,11 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget buildSignUpWithServices() {
+  Widget buildSignUpWithServices(BuildContext context) {
     return Column(
       spacing: 16,
       children: [
-        GoogleSignInButton(onPressed: _signIn),
+        GoogleSignInButton(onPressed: () => _signInWithGoogle(context)),
         AppleSignInButton(onPressed: () {}),
       ],
     );

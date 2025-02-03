@@ -1,7 +1,9 @@
-export 'models/user.dart';
+export 'application/services/auth_service.dart';
+export 'data/repositories/auth_repository.dart';
+export 'data/sources/data_source.dart';
+export 'data/sources/google_sign_in_data_source.dart';
 export 'presentation/auth_buttons.dart';
 export 'presentation/auth_screen.dart';
 export 'presentation/sign_up_buttons.dart';
 export 'presentation/sign_up_screen.dart';
 export 'presentation/sign_up_text_fields.dart';
-export 'services/auth_service.dart';

@@ -45,30 +45,35 @@ class HomeScreen extends StatelessWidget {
             title: const Text('Home'),
           ),
           body: pages[state],
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: state,
-            backgroundColor: theme.secondary,
-            onTap: (int i) => context.read<BottomNavCubit>().changePage(i),
-            type: BottomNavigationBarType.fixed,
-            selectedFontSize: 12,
-            unselectedFontSize: 12,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
-          ),
+          bottomNavigationBar: buildBottomNavigationBar(state, theme, context),
         ),
       ),
+    );
+  }
+
+  BottomNavigationBar buildBottomNavigationBar(
+      int state, ColorScheme theme, BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: state,
+      backgroundColor: theme.secondary,
+      onTap: (int i) => context.read<BottomNavCubit>().changePage(i),
+      type: BottomNavigationBarType.fixed,
+      selectedFontSize: 12,
+      unselectedFontSize: 12,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: 'Search',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
     );
   }
 }

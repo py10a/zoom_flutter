@@ -20,13 +20,17 @@ class AuthScreen extends StatelessWidget {
         bottomSheet: buildBottomSheet(theme, mediaQuery));
   }
 
-  void _joinMeeting(BuildContext context) {}
+  void _joinMeeting(BuildContext context) {
+    context.push('/join-meeting');
+  }
 
   void _signUp(BuildContext context) {
     context.push('/sign-up');
   }
 
-  void _signIn(BuildContext context) {}
+  void _signIn(BuildContext context) {
+    context.push('/sign-in');
+  }
 
   Widget? buildBody(theme, MediaQueryData mediaQuery) {
     return SizedBox(

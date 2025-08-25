@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zoom_flutter/common/widgets/widgets.dart';
 import 'package:zoom_flutter/features/auth/auth.dart';
 
@@ -107,10 +108,7 @@ class SignUpScreen extends StatelessWidget {
               color: theme.primary,
               fontWeight: FontWeight.bold,
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                // Open Terms of Service
-              },
+            recognizer: TapGestureRecognizer()..onTap = _openTermsAndConditions,
           ),
           TextSpan(text: ' and '),
           TextSpan(
@@ -119,15 +117,32 @@ class SignUpScreen extends StatelessWidget {
               color: theme.primary,
               fontWeight: FontWeight.bold,
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                // Open Privacy Policy
-              },
+            recognizer: TapGestureRecognizer()..onTap = _openPrivacyPolicy,
           ),
           const TextSpan(text: '.'),
         ],
       ),
       textAlign: TextAlign.center,
     );
+  }
+
+  void _openTermsAndConditions() async {
+    final url = Uri.parse('https://www.zoom.com/en/trust/terms/');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.inAppBrowserView);
+    } else {
+      debugPrint('Could not launch $url');
+    }
+  }
+
+  void _openPrivacyPolicy() async {
+    final url =
+        Uri.parse('https://explore.zoom.us/docs/ent/privacy-and-legal.html');
+    debugPrint('Opening $url');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.inAppBrowserView);
+    } else {
+      debugPrint('Could not launch $url');
+    }
   }
 }

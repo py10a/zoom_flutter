@@ -10,8 +10,12 @@ class GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    Color color =
+        theme.brightness == Brightness.dark ? Colors.white : Colors.black;
+
     return OutlinedButton.icon(
-      icon: Icon(Icons.g_mobiledata, size: 24, color: Colors.grey[800]),
+      icon: Icon(Icons.g_mobiledata, size: 24, color: color),
       style: OutlinedButton.styleFrom(
         minimumSize: Size(double.infinity, 48),
         shape: RoundedRectangleBorder(
@@ -24,7 +28,7 @@ class GoogleSignInButton extends StatelessWidget {
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
-          color: Colors.grey[800],
+          color: color,
         ),
       ),
     );
@@ -41,15 +45,18 @@ class AppleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    Color color =
+        theme.brightness == Brightness.dark ? Colors.white : Colors.black;
+
     return OutlinedButton.icon(
       icon: Icon(
         Icons.apple,
         size: 24,
-        color: Colors.white,
+        color: color,
       ),
       style: OutlinedButton.styleFrom(
         minimumSize: Size(double.infinity, 48),
-        backgroundColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -60,7 +67,7 @@ class AppleSignInButton extends StatelessWidget {
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: color,
         ),
       ),
     );

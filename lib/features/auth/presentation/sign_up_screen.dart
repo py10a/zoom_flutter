@@ -1,16 +1,31 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zoom_flutter/common/widgets/widgets.dart';
 import 'package:zoom_flutter/features/auth/auth.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -26,13 +41,13 @@ class SignUpScreen extends StatelessWidget {
               Column(
                 spacing: 24,
                 children: [
-                  buildEmailSignUp(theme),
-                  buildOrDivider(theme),
-                  buildSignUpWithServices(),
+                  buildEmailSignUp(context),
+                  buildOrDivider(context),
+                  buildSignUpWithServices(context),
                 ],
               ),
               const SizedBox(height: 32),
-              buildTermsAndConditions(theme),
+              buildTermsAndConditions(context),
             ],
           ),
         ),
@@ -40,8 +55,17 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _signIn() async {
-    await GetIt.instance<AuthService>().signIn();
+  Future<bool> _signUp(
+    BuildContext context,
+    AuthProviderType provider,
+    Map<String, dynamic> credentials,
+  ) async {
+    final success =
+        await GetIt.instance<AuthService>().signUp(provider, credentials);
+    if (success && context.mounted) {
+      context.pushReplacementNamed('home');
+    }
+    return success;
   }
 
   Align buildHeader() {
@@ -63,19 +87,30 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Column buildEmailSignUp(ColorScheme theme) {
+  Column buildEmailSignUp(BuildContext context) {
     return Column(
       children: [
-        EmailTextField(),
+        EmailTextField(controller: emailController),
         const SizedBox(height: 16),
-        PasswordTextField(),
+        PasswordTextField(controller: passwordController),
         const SizedBox(height: 24),
-        SignUpButton(onPressed: () {}),
+        SignUpButton(
+          onPressed: () {
+            final email = emailController.text.trim();
+            final password = passwordController.text;
+            _signUp(
+              context,
+              AuthProviderType.email,
+              {'email': email, 'password': password},
+            );
+          },
+        )
       ],
     );
   }
 
-  Row buildOrDivider(ColorScheme theme) {
+  Row buildOrDivider(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return Row(
       spacing: 8,
       children: [
@@ -86,17 +121,23 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget buildSignUpWithServices() {
+  Widget buildSignUpWithServices(BuildContext context) {
     return Column(
       spacing: 16,
       children: [
-        GoogleSignInButton(onPressed: _signIn),
-        AppleSignInButton(onPressed: () {}),
+        GoogleSignInButton(
+          onPressed: () => _signUp(context, AuthProviderType.google, {}),
+        ),
+        AppleSignInButton(
+          onPressed: () => _signUp(context, AuthProviderType.apple, {}),
+        ),
       ],
     );
   }
 
-  Widget buildTermsAndConditions(ColorScheme theme) {
+  Widget buildTermsAndConditions(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+
     return RichText(
       text: TextSpan(
         style: TextStyle(color: theme.outline),

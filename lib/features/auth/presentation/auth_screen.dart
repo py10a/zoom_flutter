@@ -11,13 +11,13 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-    final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: buildAppBar(theme),
-        backgroundColor: theme.primary,
-        body: buildBody(theme, mediaQuery),
-        bottomSheet: buildBottomSheet(theme, mediaQuery));
+      extendBodyBehindAppBar: true,
+      appBar: buildAppBar(context),
+      backgroundColor: theme.primary,
+      body: buildBody(context),
+      bottomSheet: buildBottomSheet(context),
+    );
   }
 
   void _joinMeeting(BuildContext context) {
@@ -32,7 +32,10 @@ class AuthScreen extends StatelessWidget {
     context.push('/sign-in');
   }
 
-  Widget? buildBody(theme, MediaQueryData mediaQuery) {
+  Widget? buildBody(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+    final mediaQuery = MediaQuery.of(context);
+
     return SizedBox(
       height: mediaQuery.size.height * 0.6,
       child: Center(
@@ -46,7 +49,9 @@ class AuthScreen extends StatelessWidget {
     );
   }
 
-  AppBar buildAppBar(ColorScheme theme) {
+  AppBar buildAppBar(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+
     return AppBar(
       forceMaterialTransparency: true,
       leading: IconButton(
@@ -58,7 +63,10 @@ class AuthScreen extends StatelessWidget {
     );
   }
 
-  BottomSheet buildBottomSheet(ColorScheme theme, MediaQueryData mediaQuery) {
+  BottomSheet buildBottomSheet(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+    final mediaQuery = MediaQuery.of(context);
+
     return BottomSheet(
         enableDrag: false,
         backgroundColor: theme.surface,

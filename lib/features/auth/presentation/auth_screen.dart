@@ -21,15 +21,15 @@ class AuthScreen extends StatelessWidget {
   }
 
   void _joinMeeting(BuildContext context) {
-    context.push('/join-meeting');
+    context.pushNamed('join-meeting');
   }
 
   void _signUp(BuildContext context) {
-    context.push('/sign-up');
+    context.pushNamed('sign-up');
   }
 
   void _signIn(BuildContext context) {
-    context.push('/sign-in');
+    context.pushNamed('sign-in');
   }
 
   Widget? buildBody(BuildContext context) {
